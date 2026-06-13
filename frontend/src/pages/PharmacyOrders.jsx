@@ -30,7 +30,7 @@ const PharmacyOrders = () => {
 
   const fetchOrders = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/orders', {
+      const response = await axios.get('https://rare-medicine-locator-main.onrender.com/api/orders', {
         headers: { Authorization: `Bearer ${token}` }
       });
       setOrders(response.data);
@@ -53,7 +53,7 @@ const PharmacyOrders = () => {
 
   const updatePaymentStatus = async (orderId, paymentStatus) => {
     try {
-      await axios.put(`http://localhost:5000/api/orders/${orderId}/payment`, { paymentStatus }, {
+      await axios.put(`https://rare-medicine-locator-main.onrender.com/api/orders/${orderId}/payment`, { paymentStatus }, {
         headers: { Authorization: `Bearer ${token}` }
       });
       toast.success(`Payment status updated to ${paymentStatus}`);
@@ -63,7 +63,7 @@ const PharmacyOrders = () => {
 
   const updatePaymentMode = async (orderId, paymentMode) => {
     try {
-      await axios.put(`http://localhost:5000/api/orders/${orderId}/payment-mode`, { paymentMode }, {
+      await axios.put(`https://rare-medicine-locator-main.onrender.com/api/orders/${orderId}/payment-mode`, { paymentMode }, {
         headers: { Authorization: `Bearer ${token}` }
       });
       toast.success(`Payment mode updated to ${paymentMode}`);
@@ -73,7 +73,7 @@ const PharmacyOrders = () => {
 
   const updateOrderStatus = async (orderId, status) => {
     try {
-      await axios.put(`http://localhost:5000/api/orders/${orderId}/status`, { status }, {
+      await axios.put(`https://rare-medicine-locator-main.onrender.com/api/orders/${orderId}/status`, { status }, {
         headers: { Authorization: `Bearer ${token}` }
       });
       toast.success(`Order status updated to ${status}`);
@@ -83,7 +83,7 @@ const PharmacyOrders = () => {
 
   const assignDeliveryPartner = async (orderId, deliveryPartner) => {
     try {
-      await axios.put(`http://localhost:5000/api/orders/${orderId}/delivery-partner`, { deliveryPartner }, {
+      await axios.put(`https://rare-medicine-locator-main.onrender.com/api/orders/${orderId}/delivery-partner`, { deliveryPartner }, {
         headers: { Authorization: `Bearer ${token}` }
       });
       toast.success(`Delivery partner assigned: ${deliveryPartner}`);
@@ -93,7 +93,7 @@ const PharmacyOrders = () => {
 
   const updateDeliveryStatus = async (orderId, deliveryStatus) => {
     try {
-      await axios.put(`http://localhost:5000/api/orders/${orderId}/delivery-status`, { deliveryStatus }, {
+      await axios.put(`https://rare-medicine-locator-main.onrender.com/api/orders/${orderId}/delivery-status`, { deliveryStatus }, {
         headers: { Authorization: `Bearer ${token}` }
       });
       toast.success(`Delivery status updated to ${deliveryStatus}`);
@@ -108,13 +108,13 @@ const PharmacyOrders = () => {
     }
     try {
       if (editPhone || editAddress) {
-        await axios.put(`http://localhost:5000/api/orders/${orderId}/update-details`, {
+        await axios.put(`https://rare-medicine-locator-main.onrender.com/api/orders/${orderId}/update-details`, {
           phoneNumber: editPhone,
           billingAddress: editAddress
         }, { headers: { Authorization: `Bearer ${token}` } });
       }
       if (editDeliveryDate) {
-        await axios.put(`http://localhost:5000/api/orders/${orderId}/delivery-date`, {
+        await axios.put(`https://rare-medicine-locator-main.onrender.com/api/orders/${orderId}/delivery-date`, {
           deliveryByDate: editDeliveryDate
         }, { headers: { Authorization: `Bearer ${token}` } });
       }

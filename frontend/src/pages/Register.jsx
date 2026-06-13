@@ -18,7 +18,7 @@ const Register = () => {
     setError('');
     
     try {
-      await axios.post('http://localhost:5000/api/auth/register', {
+      await axios.post('https://rare-medicine-locator-main.onrender.com/api/auth/register', {
         name,
         email,
         password,

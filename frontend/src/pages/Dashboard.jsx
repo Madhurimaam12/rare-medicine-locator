@@ -27,7 +27,7 @@ const Dashboard = () => {
 
   const fetchMedicines = async () => {
     try {
-      const response = await axios.get(`http://localhost:5000/api/medicines/my-medicines/${pharmacyId}`, {
+      const response = await axios.get(`https://rare-medicine-locator-main.onrender.com/api/medicines/my-medicines/${pharmacyId}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setMedicines(response.data);
@@ -36,7 +36,7 @@ const Dashboard = () => {
 
   const fetchRequests = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/requests/all', {
+      const response = await axios.get('https://rare-medicine-locator-main.onrender.com/api/requests/all', {
         headers: { Authorization: `Bearer ${token}` }
       });
       setAllRequests(response.data);
@@ -45,7 +45,7 @@ const Dashboard = () => {
 
   const fetchOrders = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/orders', {
+      const response = await axios.get('https://rare-medicine-locator-main.onrender.com/api/orders', {
         headers: { Authorization: `Bearer ${token}` }
       });
       setOrders(response.data);
@@ -70,7 +70,7 @@ const Dashboard = () => {
       pharmacyId: pharmacyId
     };
     try {
-      await axios.post('http://localhost:5000/api/medicines', medicine, {
+      await axios.post('https://rare-medicine-locator-main.onrender.com/api/medicines', medicine, {
         headers: { Authorization: `Bearer ${token}` }
       });
       toast.success('Medicine added successfully!');
@@ -83,7 +83,7 @@ const Dashboard = () => {
     const newStock = prompt('Enter new stock quantity:', currentStock);
     if (newStock !== null && !isNaN(parseInt(newStock))) {
       try {
-        await axios.put(`http://localhost:5000/api/medicines/${id}/stock`, { stock: parseInt(newStock) }, {
+        await axios.put(`https://rare-medicine-locator-main.onrender.com/api/medicines/${id}/stock`, { stock: parseInt(newStock) }, {
           headers: { Authorization: `Bearer ${token}` }
         });
         toast.success('Stock updated');
@@ -94,7 +94,7 @@ const Dashboard = () => {
 
   const updateRequestStatus = async (id, status) => {
     try {
-      await axios.put(`http://localhost:5000/api/requests/${id}/status`, { status }, {
+      await axios.put(`https://rare-medicine-locator-main.onrender.com/api/requests/${id}/status`, { status }, {
         headers: { Authorization: `Bearer ${token}` }
       });
       toast.success(`Request ${status}`);

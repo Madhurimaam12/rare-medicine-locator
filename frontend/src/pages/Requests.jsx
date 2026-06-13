@@ -25,7 +25,7 @@ const Requests = () => {
 
   const fetchMyRequests = async () => {
     try {
-      const response = await axios.get(`http://localhost:5000/api/requests/user/${userId}`, {
+      const response = await axios.get(`https://rare-medicine-locator-main.onrender.com/api/requests/user/${userId}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setMyRequests(response.data);
@@ -46,7 +46,7 @@ const Requests = () => {
     }
     setSubmitting(true);
     try {
-      await axios.post('http://localhost:5000/api/requests', {
+      await axios.post('https://rare-medicine-locator-main.onrender.com/api/requests', {
         medicineName,
         userId,
         userName,

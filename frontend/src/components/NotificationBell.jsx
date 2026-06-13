@@ -33,7 +33,7 @@ const NotificationBell = () => {
 
   const fetchNotifications = async () => {
     try {
-      const response = await axios.get(`http://localhost:5000/api/notifications/${userId}`, {
+      const response = await axios.get(`https://rare-medicine-locator-main.onrender.com/api/notifications/${userId}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setNotifications(response.data);
@@ -44,7 +44,7 @@ const NotificationBell = () => {
 
   const fetchUnreadCount = async () => {
     try {
-      const response = await axios.get(`http://localhost:5000/api/notifications/unread/${userId}`, {
+      const response = await axios.get(`https://rare-medicine-locator-main.onrender.com/api/notifications/unread/${userId}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setUnreadCount(response.data.count);
@@ -55,7 +55,7 @@ const NotificationBell = () => {
 
   const markAsRead = async (id) => {
     try {
-      await axios.put(`http://localhost:5000/api/notifications/${id}/read`, {}, {
+      await axios.put(`https://rare-medicine-locator-main.onrender.com/api/notifications/${id}/read`, {}, {
         headers: { Authorization: `Bearer ${token}` }
       });
       fetchNotifications();
@@ -67,7 +67,7 @@ const NotificationBell = () => {
 
   const markAllAsRead = async () => {
     try {
-      await axios.put(`http://localhost:5000/api/notifications/read-all/${userId}`, {}, {
+      await axios.put(`https://rare-medicine-locator-main.onrender.com/api/notifications/read-all/${userId}`, {}, {
         headers: { Authorization: `Bearer ${token}` }
       });
       fetchNotifications();

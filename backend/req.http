@@ -2,7 +2,7 @@
 GET http://localhost:5000/
 
 ### 2. REGISTER USER (POST)
-POST http://localhost:5000/api/auth/register
+POST https://rare-medicine-locator-main.onrender.com/api/auth/register
 Content-Type: application/json
 
 {
@@ -13,7 +13,7 @@ Content-Type: application/json
 }
 
 ### 3. REGISTER PHARMACY (POST)
-POST http://localhost:5000/api/auth/register
+POST https://rare-medicine-locator-main.onrender.com/api/auth/register
 Content-Type: application/json
 
 {
@@ -24,7 +24,7 @@ Content-Type: application/json
 }
 
 ### 4. LOGIN USER (POST)
-POST http://localhost:5000/api/auth/login
+POST https://rare-medicine-locator-main.onrender.com/api/auth/login
 Content-Type: application/json
 
 {
@@ -33,7 +33,7 @@ Content-Type: application/json
 }
 
 ### 5. LOGIN PHARMACY (POST)
-POST http://localhost:5000/api/auth/login
+POST https://rare-medicine-locator-main.onrender.com/api/auth/login
 Content-Type: application/json
 
 {
@@ -42,13 +42,13 @@ Content-Type: application/json
 }
 
 ### 6. SEARCH MEDICINES (GET)
-GET http://localhost:5000/api/medicines/search?q=Zolgensma
+GET https://rare-medicine-locator-main.onrender.com/api/medicines/search?q=Zolgensma
 
 ### 7. SEARCH BY LOCATION (GET)
-GET http://localhost:5000/api/medicines/search?location=Mumbai
+GET https://rare-medicine-locator-main.onrender.com/api/medicines/search?location=Mumbai
 
 ### 8. ADD MEDICINE (POST) - TOKEN REQUIRED
-POST http://localhost:5000/api/medicines
+POST https://rare-medicine-locator-main.onrender.com/api/medicines
 Content-Type: application/json
 Authorization: Bearer YOUR_TOKEN_HERE
 
@@ -63,7 +63,7 @@ Authorization: Bearer YOUR_TOKEN_HERE
 }
 
 ### 9. UPDATE STOCK (PUT) - TOKEN REQUIRED
-PUT http://localhost:5000/api/medicines/MEDICINE_ID/stock
+PUT https://rare-medicine-locator-main.onrender.com/api/medicines/MEDICINE_ID/stock
 Content-Type: application/json
 Authorization: Bearer YOUR_TOKEN_HERE
 
@@ -72,7 +72,7 @@ Authorization: Bearer YOUR_TOKEN_HERE
 }
 
 ### 10. CREATE REQUEST (POST) - TOKEN REQUIRED
-POST http://localhost:5000/api/requests
+POST https://rare-medicine-locator-main.onrender.com/api/requests
 Content-Type: application/json
 Authorization: Bearer YOUR_TOKEN_HERE
 
@@ -85,15 +85,15 @@ Authorization: Bearer YOUR_TOKEN_HERE
 }
 
 ### 11. GET USER REQUESTS (GET) - TOKEN REQUIRED
-GET http://localhost:5000/api/requests/user/YOUR_USER_ID
+GET https://rare-medicine-locator-main.onrender.com/api/requests/user/YOUR_USER_ID
 Authorization: Bearer YOUR_TOKEN_HERE
 
 ### 12. GET ALL REQUESTS (GET) - TOKEN REQUIRED
-GET http://localhost:5000/api/requests/all
+GET https://rare-medicine-locator-main.onrender.com/api/requests/all
 Authorization: Bearer YOUR_TOKEN_HERE
 
 ### 13. UPDATE REQUEST STATUS (PUT) - TOKEN REQUIRED
-PUT http://localhost:5000/api/requests/REQUEST_ID/status
+PUT https://rare-medicine-locator-main.onrender.com/api/requests/REQUEST_ID/status
 Content-Type: application/json
 Authorization: Bearer YOUR_TOKEN_HERE
 
@@ -102,5 +102,5 @@ Authorization: Bearer YOUR_TOKEN_HERE
 }
 
 ### 14. DELETE MEDICINE (DELETE) - TOKEN REQUIRED
-DELETE http://localhost:5000/api/medicines/MEDICINE_ID
+DELETE https://rare-medicine-locator-main.onrender.com/api/medicines/MEDICINE_ID
 Authorization: Bearer YOUR_TOKEN_HERE

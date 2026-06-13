@@ -43,7 +43,7 @@ const MyOrders = () => {
 
   const fetchOrders = async () => {
     try {
-      const response = await axios.get(`http://localhost:5000/api/orders/user/${userId}`, {
+      const response = await axios.get(`https://rare-medicine-locator-main.onrender.com/api/orders/user/${userId}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setOrders([...response.data]);
@@ -71,7 +71,7 @@ const MyOrders = () => {
       return;
     }
     try {
-      await axios.put(`http://localhost:5000/api/orders/${orderId}/update-details`, {
+      await axios.put(`https://rare-medicine-locator-main.onrender.com/api/orders/${orderId}/update-details`, {
         phoneNumber: editPhone,
         billingAddress: editAddress
       }, { headers: { Authorization: `Bearer ${token}` } });
@@ -85,7 +85,7 @@ const MyOrders = () => {
 
   const updatePaymentMode = async (orderId, paymentMode) => {
     try {
-      await axios.put(`http://localhost:5000/api/orders/${orderId}/payment-mode`, { paymentMode }, {
+      await axios.put(`https://rare-medicine-locator-main.onrender.com/api/orders/${orderId}/payment-mode`, { paymentMode }, {
         headers: { Authorization: `Bearer ${token}` }
       });
       toast.success('Payment mode updated');
@@ -98,7 +98,7 @@ const MyOrders = () => {
   const cancelOrder = async (orderId, reason) => {
     if (!window.confirm('Are you sure you want to cancel this order?')) return;
     try {
-      await axios.put(`http://localhost:5000/api/orders/${orderId}/cancel`, {
+      await axios.put(`https://rare-medicine-locator-main.onrender.com/api/orders/${orderId}/cancel`, {
         cancelReason: reason || 'User requested cancellation'
       }, { headers: { Authorization: `Bearer ${token}` } });
       toast.success('Order cancelled successfully');
@@ -114,7 +114,7 @@ const MyOrders = () => {
       return;
     }
     try {
-      await axios.put(`http://localhost:5000/api/orders/${selectedOrder._id}/rating`, {
+      await axios.put(`https://rare-medicine-locator-main.onrender.com/api/orders/${selectedOrder._id}/rating`, {
         rating: ratingValue,
         review: reviewText
       }, { headers: { Authorization: `Bearer ${token}` } });
@@ -134,7 +134,7 @@ const MyOrders = () => {
       return;
     }
     try {
-      await axios.put(`http://localhost:5000/api/orders/${selectedOrder._id}/reminder`, {
+      await axios.put(`https://rare-medicine-locator-main.onrender.com/api/orders/${selectedOrder._id}/reminder`, {
         reminderDate
       }, { headers: { Authorization: `Bearer ${token}` } });
       toast.success(`Reminder set for ${new Date(reminderDate).toLocaleDateString()}`);

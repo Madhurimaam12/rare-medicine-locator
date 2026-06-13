@@ -16,7 +16,7 @@ const PharmacyRating = ({ pharmacyId, pharmacyName, onRatingSubmit }) => {
     
     setSubmitting(true);
     try {
-      await axios.post('http://localhost:5000/api/ratings', {
+      await axios.post('https://rare-medicine-locator-main.onrender.com/api/ratings', {
         pharmacyId,
         pharmacyName,
         rating,

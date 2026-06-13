@@ -44,7 +44,7 @@ const Home = () => {
 
   const fetchAllMedicines = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/medicines/search', { params: { q: '' } });
+      const response = await axios.get('https://rare-medicine-locator-main.onrender.com/api/medicines/search', { params: { q: '' } });
       const medsWithPharmacy = response.data.map((med, index) => ({
         ...med,
         pharmacyInfo: pharmacyDetails[`pharmacy${(index % 3) + 1}`] || pharmacyDetails.pharmacy1
@@ -107,7 +107,7 @@ const Home = () => {
     try {
       const params = { q: searchValue };
       if (locationValue) params.location = locationValue;
-      const response = await axios.get('http://localhost:5000/api/medicines/search', { params });
+      const response = await axios.get('https://rare-medicine-locator-main.onrender.com/api/medicines/search', { params });
       const medsWithPharmacy = response.data.map((med, index) => ({
         ...med,
         pharmacyInfo: pharmacyDetails[`pharmacy${(index % 3) + 1}`] || pharmacyDetails.pharmacy1
