@@ -5,55 +5,22 @@ const NotificationBell = () => {
   const [notifications, setNotifications] = useState([]);
   const [unreadCount, setUnreadCount] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
-  const [loading, setLoading] = useState(false);
   const dropdownRef = useRef(null);
-  
+
   const userId = localStorage.getItem('userId');
   const token = localStorage.getItem('token');
 
-  // Fetch notifications and unread count
-  const fetchNotifications = async () => {
-    if (!userId || !token) return;
-    setLoading(true);
-    try {
-      const response = await axios.get(`http://localhost:5000/api/notifications/${userId}`, {
-        headers: { Authorization: `Bearer ${token}` }
-      });
-      console.log('Fetched notifications:', response.data);
-      setNotifications(response.data);
-    } catch (error) {
-      console.error('Failed to fetch notifications:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const fetchUnreadCount = async () => {
-    if (!userId || !token) return;
-    try {
-      const response = await axios.get(`http://localhost:5000/api/notifications/unread/${userId}`, {
-        headers: { Authorization: `Bearer ${token}` }
-      });
-      console.log('Unread count:', response.data.count);
-      setUnreadCount(response.data.count);
-    } catch (error) {
-      console.error('Failed to fetch unread count:', error);
-    }
-  };
-
-  // Initial fetch and polling every 15 seconds
   useEffect(() => {
-    fetchNotifications();
-    fetchUnreadCount();
-    const interval = setInterval(() => {
-      fetchUnreadCount();
-      // Optionally refresh list when unread count changes
+    if (userId && token) {
       fetchNotifications();
-    }, 15000);
-    return () => clearInterval(interval);
+      fetchUnreadCount();
+      const interval = setInterval(() => {
+        fetchUnreadCount();
+      }, 10000);
+      return () => clearInterval(interval);
+    }
   }, [userId, token]);
 
-  // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -64,12 +31,33 @@ const NotificationBell = () => {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
+  const fetchNotifications = async () => {
+    try {
+      const response = await axios.get(`http://localhost:5000/api/notifications/${userId}`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      setNotifications(response.data);
+    } catch (error) {
+      console.error('Failed to fetch notifications:', error);
+    }
+  };
+
+  const fetchUnreadCount = async () => {
+    try {
+      const response = await axios.get(`http://localhost:5000/api/notifications/unread/${userId}`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      setUnreadCount(response.data.count);
+    } catch (error) {
+      console.error('Failed to fetch unread count:', error);
+    }
+  };
+
   const markAsRead = async (id) => {
     try {
       await axios.put(`http://localhost:5000/api/notifications/${id}/read`, {}, {
         headers: { Authorization: `Bearer ${token}` }
       });
-      // Refresh after marking as read
       fetchNotifications();
       fetchUnreadCount();
     } catch (error) {
@@ -91,13 +79,12 @@ const NotificationBell = () => {
 
   return (
     <div className="position-relative" ref={dropdownRef}>
-      {/* Bell Button */}
       <button
         className="btn btn-outline-light position-relative"
         onClick={() => setIsOpen(!isOpen)}
-        style={{ borderRadius: '50%', width: '40px', height: '40px', padding: 0 }}
+        style={{ padding: '6px 16px', fontWeight: '500' }}
       >
-        🔔
+        Notifications
         {unreadCount > 0 && (
           <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
             {unreadCount > 99 ? '99+' : unreadCount}
@@ -105,12 +92,11 @@ const NotificationBell = () => {
         )}
       </button>
 
-      {/* Dropdown */}
       {isOpen && (
-        <div className="position-absolute end-0 mt-2 bg-white border rounded-3 shadow-lg" style={{ width: '350px', maxHeight: '500px', overflowY: 'auto', zIndex: 1050 }}>
+        <div className="position-absolute end-0 mt-2 bg-white border rounded-3 shadow-lg" style={{ width: '380px', maxHeight: '500px', overflowY: 'auto', zIndex: 1050 }}>
           <div className="p-3 border-bottom bg-light rounded-top">
             <div className="d-flex justify-content-between align-items-center">
-              <h6 className="mb-0">Notifications</h6>
+              <h6 className="mb-0 fw-bold">Notifications</h6>
               {notifications.length > 0 && (
                 <button className="btn btn-sm btn-link text-decoration-none" onClick={markAllAsRead}>
                   Mark all as read
@@ -118,41 +104,37 @@ const NotificationBell = () => {
               )}
             </div>
           </div>
+
           <div className="list-group list-group-flush">
-            {loading && (
+            {notifications.length === 0 ? (
               <div className="p-4 text-center text-muted">
-                <div className="spinner-border spinner-border-sm text-primary" role="status"></div>
-                <p className="mt-2">Loading...</p>
+                <p className="mb-0">No notifications</p>
               </div>
-            )}
-            {!loading && notifications.length === 0 && (
-              <div className="p-4 text-center text-muted">
-                <p className="mb-0">No new notifications</p>
-              </div>
-            )}
-            {!loading && notifications.map((notif) => (
-              <div
-                key={notif._id}
-                className={`list-group-item ${!notif.isRead ? 'bg-light' : ''}`}
-                onClick={() => markAsRead(notif._id)}
-                style={{ cursor: 'pointer' }}
-              >
-                <div className="d-flex justify-content-between">
-                  <div>
-                    <div className="fw-bold">{notif.title}</div>
-                    <div className="text-muted small">{notif.message}</div>
-                    <div className="text-muted small mt-1">
-                      {new Date(notif.createdAt).toLocaleString()}
+            ) : (
+              notifications.map((notif) => (
+                <div
+                  key={notif._id}
+                  className={`list-group-item ${!notif.isRead ? 'bg-light' : ''}`}
+                  onClick={() => markAsRead(notif._id)}
+                  style={{ cursor: 'pointer' }}
+                >
+                  <div className="d-flex">
+                    <div className="flex-grow-1">
+                      <div className="fw-bold">{notif.title}</div>
+                      <div className="text-muted small">{notif.message}</div>
+                      <div className="text-muted small mt-1">
+                        {new Date(notif.createdAt).toLocaleString()}
+                      </div>
                     </div>
+                    {!notif.isRead && (
+                      <div className="ms-2">
+                        <span className="badge bg-primary rounded-pill">New</span>
+                      </div>
+                    )}
                   </div>
-                  {!notif.isRead && (
-                    <div className="ms-2">
-                      <span className="badge bg-primary rounded-pill">New</span>
-                    </div>
-                  )}
                 </div>
-              </div>
-            ))}
+              ))
+            )}
           </div>
         </div>
       )}
