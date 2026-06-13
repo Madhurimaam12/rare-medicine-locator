@@ -1,0 +1,106 @@
+### 1. TEST SERVER (GET)
+GET http://localhost:5000/
+
+### 2. REGISTER USER (POST)
+POST http://localhost:5000/api/auth/register
+Content-Type: application/json
+
+{
+  "name": "Test User",
+  "email": "test@example.com",
+  "password": "123456",
+  "role": "user"
+}
+
+### 3. REGISTER PHARMACY (POST)
+POST http://localhost:5000/api/auth/register
+Content-Type: application/json
+
+{
+  "name": "Test Pharmacy",
+  "email": "pharmacy@example.com",
+  "password": "123456",
+  "role": "pharmacy"
+}
+
+### 4. LOGIN USER (POST)
+POST http://localhost:5000/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "test@example.com",
+  "password": "123456"
+}
+
+### 5. LOGIN PHARMACY (POST)
+POST http://localhost:5000/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "pharmacy@example.com",
+  "password": "123456"
+}
+
+### 6. SEARCH MEDICINES (GET)
+GET http://localhost:5000/api/medicines/search?q=Zolgensma
+
+### 7. SEARCH BY LOCATION (GET)
+GET http://localhost:5000/api/medicines/search?location=Mumbai
+
+### 8. ADD MEDICINE (POST) - TOKEN REQUIRED
+POST http://localhost:5000/api/medicines
+Content-Type: application/json
+Authorization: Bearer YOUR_TOKEN_HERE
+
+{
+  "name": "RareMed 100",
+  "genericName": "Test Generic",
+  "manufacturer": "Test Pharma",
+  "price": 5000,
+  "stock": 10,
+  "location": "Mumbai",
+  "pharmacyId": "YOUR_PHARMACY_ID"
+}
+
+### 9. UPDATE STOCK (PUT) - TOKEN REQUIRED
+PUT http://localhost:5000/api/medicines/MEDICINE_ID/stock
+Content-Type: application/json
+Authorization: Bearer YOUR_TOKEN_HERE
+
+{
+  "stock": 25
+}
+
+### 10. CREATE REQUEST (POST) - TOKEN REQUIRED
+POST http://localhost:5000/api/requests
+Content-Type: application/json
+Authorization: Bearer YOUR_TOKEN_HERE
+
+{
+  "medicineName": "Zolgensma",
+  "userId": "YOUR_USER_ID",
+  "userName": "Test User",
+  "location": "Mumbai",
+  "urgency": "urgent"
+}
+
+### 11. GET USER REQUESTS (GET) - TOKEN REQUIRED
+GET http://localhost:5000/api/requests/user/YOUR_USER_ID
+Authorization: Bearer YOUR_TOKEN_HERE
+
+### 12. GET ALL REQUESTS (GET) - TOKEN REQUIRED
+GET http://localhost:5000/api/requests/all
+Authorization: Bearer YOUR_TOKEN_HERE
+
+### 13. UPDATE REQUEST STATUS (PUT) - TOKEN REQUIRED
+PUT http://localhost:5000/api/requests/REQUEST_ID/status
+Content-Type: application/json
+Authorization: Bearer YOUR_TOKEN_HERE
+
+{
+  "status": "approved"
+}
+
+### 14. DELETE MEDICINE (DELETE) - TOKEN REQUIRED
+DELETE http://localhost:5000/api/medicines/MEDICINE_ID
+Authorization: Bearer YOUR_TOKEN_HERE
