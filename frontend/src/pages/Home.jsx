@@ -5,6 +5,7 @@ import toast from 'react-hot-toast';
 import { useTheme } from '../context/ThemeContext';
 import NotificationBell from '../components/NotificationBell';
 import MedicineCompare from '../components/MedicineCompare';
+import { medicineDetails, defaultDetails } from '../data/medicineDetails';
 
 const Home = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -182,24 +183,6 @@ const Home = () => {
     if (stock <= 5) return <span className="badge bg-warning text-dark">Low Stock ({stock} left)</span>;
     if (stock <= 10) return <span className="badge bg-info">Limited Stock</span>;
     return <span className="badge bg-success">In Stock ({stock})</span>;
-  };
-
-  const medicineDetailsData = {
-    Zolgensma: {
-      description: "Zolgensma is a gene therapy used to treat spinal muscular atrophy (SMA).",
-      uses: "Treatment of pediatric patients with spinal muscular atrophy.",
-      mechanism: "Delivers a functional copy of the SMN1 gene to motor neuron cells.",
-      sideEffects: "Liver enzyme elevation, vomiting, fever, respiratory infection",
-      dosage: "Single-dose intravenous infusion administered over 60 minutes."
-    }
-  };
-
-  const defaultDetails = {
-    description: "This is a rare medicine used to treat a specific medical condition.",
-    uses: "Treatment of rare genetic or metabolic disorders",
-    mechanism: "Targets specific molecular pathways involved in the disease process.",
-    sideEffects: "Consult your healthcare provider for potential side effects.",
-    dosage: "As prescribed by your healthcare provider."
   };
 
   return (
@@ -412,7 +395,11 @@ const Home = () => {
               </div>
               <div className="modal-body" style={{ maxHeight: '70vh', overflowY: 'auto' }}>
                 {(() => {
-                  const details = medicineDetailsData[selectedMedicine.name] || defaultDetails;
+                  // Case-insensitive lookup for medicine details
+                  const medicineKey = Object.keys(medicineDetails).find(
+                    key => key.toLowerCase() === selectedMedicine.name?.toLowerCase()
+                  );
+                  const details = medicineKey ? medicineDetails[medicineKey] : defaultDetails;
                   return (
                     <>
                       <div className="mb-4">
@@ -421,6 +408,7 @@ const Home = () => {
                       </div>
                       <div className="mb-4">
                         <h6 className="fw-bold" style={{ color: 'var(--accent)' }}>What is it used for?</h6>
+                        <p>{details.uses}</p>
                       </div>
                       <div className="mb-4">
                         <h6 className="fw-bold" style={{ color: 'var(--accent)' }}>How does it work?</h6>
