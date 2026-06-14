@@ -260,11 +260,17 @@ const PharmacyOrders = () => {
                     <td>
                       {order.rating ? (
                         <div>
-                          <span className="text-warning">{'★'.repeat(order.rating)}{'☆'.repeat(5 - order.rating)}</span>
-                          {order.review && <small className="d-block text-muted">"{order.review.substring(0, 30)}..."</small>}
+                          <span className="badge bg-primary">
+                            Rating: {order.rating}/5
+                          </span>
+                          {order.review && (
+                            <small className="d-block text-muted mt-1" title={order.review}>
+                              "{order.review.length > 30 ? order.review.substring(0, 30) + '...' : order.review}"
+                            </small>
+                          )}
                         </div>
                       ) : (
-                        <span className="text-muted">—</span>
+                        <span className="text-muted">Not rated</span>
                       )}
                     </td>
                     <td>
