@@ -253,7 +253,6 @@ const Landing = () => {
                 <p className="text-muted">"Found a life-saving medicine for my father within hours. Thank you!"</p>
                 <div className="mt-3">
                   <strong style={{ color: 'var(--text-h)' }}>- Rajesh M.</strong>
-                  <div className="text-warning">★★★★★</div>
                 </div>
               </div>
             </div>
@@ -268,7 +267,6 @@ const Landing = () => {
                 <p className="text-muted">"As a pharmacist, this platform helps me serve patients better. Very useful!"</p>
                 <div className="mt-3">
                   <strong style={{ color: 'var(--text-h)' }}>- Dr. Priya S.</strong>
-                  <div className="text-warning">★★★★★</div>
                 </div>
               </div>
             </div>
@@ -283,7 +281,6 @@ const Landing = () => {
                 <p className="text-muted">"Quick, reliable, and easy to use. Highly recommend for rare disease patients."</p>
                 <div className="mt-3">
                   <strong style={{ color: 'var(--text-h)' }}>- Anita K.</strong>
-                  <div className="text-warning">★★★★☆</div>
                 </div>
               </div>
             </div>
